@@ -96,3 +96,17 @@ Fișier de progres. Îl actualizez la fiecare etapă: ce am făcut, decizii, und
 - [x] **CTA „Primul pas..."** centrat (era aliniat stânga) — coloană centrată, butoane pe mijloc.
 - [x] Verificat desktop+mobil: fără overflow, fără erori, filtre OK, lazy OK.
 - [x] Live pe **GitHub Pages** (repo public, autorizat de Flavius pentru a-l arăta clientului; mutăm pe Cloudflare privat când e gata).
+
+---
+
+## 2026-06-30 — Fix v5: clipul din mijloc sacadat pe telefon
+
+**Problema:** showcase-ul folosea scroll-scrub (currentTime legat de scroll). Pe live (host cu range requests) devenea seekable → pe **telefon** scrub-ul era extrem de sacadat (mobilul nu poate face seek cadru-cu-cadru fluid). Flavius a cerut să arate bine pe telefon, fără să cheltuim credite. (Referința lui = propriul site FERRUM, unde îi place efectul de scroll-scrub, dar în temă închisă.)
+
+**Fix (fără credite, fără regenerare):**
+- [x] Detectare touch (`pointer: coarse` / `maxTouchPoints` / `ontouchstart`) → pe **mobil/tabletă** clipul **rulează lin în buclă** (playback normal = mereu fluid), **fără scrub**.
+- [x] Pe **desktop** rămâne **scroll-scrub-ul** (efectul „smecher" pe care îl place), cu prag anti-micro-seek (>0.04s).
+- [x] Secțiune pinned mai scurtă pe mobil (130vh) pentru un moment cinematic snappy.
+- [x] Clipul rămâne lazy (se încarcă doar la apropiere) — pe mobil se redă progresiv, nu necesită seek.
+
+Notă: în preview nu se poate emula touch (isCoarse=false), deci se vede calea desktop; calea mobil se confirmă pe telefon real (maxTouchPoints>0).

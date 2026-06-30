@@ -5,6 +5,9 @@
   "use strict";
   var cfg = window.SITE_CONFIG || {};
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Telefoane/tablete (touch): NU folosim scroll-scrub video (e sacadat). Redăm în buclă lin.
+  var isCoarse = (window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches) ||
+                 (navigator.maxTouchPoints > 0) || ("ontouchstart" in window);
 
   /* ---------- Link-uri din config ---------- */
   var telHref = "tel:+" + (cfg.phoneIntl || "");
@@ -207,17 +210,20 @@
       if (heroMedia) heroMedia.style.transform = "translate3d(0," + (y * 0.12) + "px,0) scale(1.06)";
     }
 
-    // scroll-scrub showcase video (doar dacă e seekable; altfel rămâne pe loop)
-    if (!reduce && showcase && sv && svReady && svDur) {
+    // Showcase video:
+    //  - MOBIL (touch): rulează în buclă lin, FĂRĂ scrub → zero sacadare.
+    //  - DESKTOP: scroll-scrub (cadrul urmează scroll-ul).
+    if (!reduce && !isCoarse && showcase && sv && svReady && svDur) {
       var rect = showcase.getBoundingClientRect();
       var total = showcase.offsetHeight - vh;
       var seekEnd = (sv.seekable && sv.seekable.length) ? sv.seekable.end(0) : 0;
-      if (total > 0 && rect.top <= 0 && rect.bottom >= 0 && seekEnd > 1) {
+      if (total > 0 && rect.top <= 0 && rect.bottom >= vh && seekEnd > 1) {
         if (!sv.paused) sv.pause();
         var p = Math.min(1, Math.max(0, -rect.top / total));
-        try { sv.currentTime = p * (Math.min(svDur, seekEnd) - 0.05); } catch (e) {}
-      } else if (rect.bottom < 0 || rect.top > vh) {
-        if (sv.paused && seekEnd <= 1) { var p2 = sv.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+        var tgt = p * (Math.min(svDur, seekEnd) - 0.05);
+        if (Math.abs(tgt - sv.currentTime) > 0.04) { try { sv.currentTime = tgt; } catch (e) {} }
+      } else if (sv.paused && svStarted) {
+        var p2 = sv.play(); if (p2 && p2.catch) p2.catch(function () {});
       }
     }
   }
