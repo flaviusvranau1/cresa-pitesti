@@ -110,3 +110,18 @@ Fișier de progres. Îl actualizez la fiecare etapă: ce am făcut, decizii, und
 - [x] Clipul rămâne lazy (se încarcă doar la apropiere) — pe mobil se redă progresiv, nu necesită seek.
 
 Notă: în preview nu se poate emula touch (isCoarse=false), deci se vede calea desktop; calea mobil se confirmă pe telefon real (maxTouchPoints>0).
+
+---
+
+## 2026-06-30 — Fix v6: scroll-scrub adevărat, fluid pe mobil (secvență de cadre pe canvas)
+
+**Cerința lui Flavius:** vrea efectul „se derulează la scroll ca un clip" **și pe telefon**, nu doar buclă. Idee bună de la el: împărțit clipul în cadre mici.
+
+**Soluție (tehnica Apple-style):**
+- [x] Extras **48 cadre** din clip (ffmpeg, 854px, WebP q62) → `assets/img/seq/` = **doar 884KB total** (16KB/cadru), mai ușor decât clipul video!
+- [x] Înlocuit `<video>` cu `<canvas>`; un scrubber JS desenează cadrul potrivit în funcție de progresul scroll-ului prin secțiunea pinned. **Fluid pe mobil** pentru că doar schimbă imagini deja decodate (fără „seek" în video = fără sacadare).
+- [x] Netezire cu **lerp** (curr += (target-curr)*0.18) → derulare catifelată; `requestAnimationFrame` doar cât secțiunea e în view; lazy-load cadre (IntersectionObserver, rootMargin 600px); poster ca fundal până se încarcă; `cover` calculat în draw; resize handler; respectă `prefers-reduced-motion`.
+- [x] Eliminat `showcase.mp4` (1.5M) din repo — nu mai e folosit. Eliminat logica isCoarse/scrub video.
+- [x] Verificat desktop+mobil în preview: canvas desenează, cadrele se schimbă proporțional cu scroll-ul, fără erori, fără overflow.
+
+Rezultat: același efect „smecher" de scroll-scrub ca pe FERRUM, dar **fluid pe telefon** și mai ușor.

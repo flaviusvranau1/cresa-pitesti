@@ -5,9 +5,6 @@
   "use strict";
   var cfg = window.SITE_CONFIG || {};
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // Telefoane/tablete (touch): NU folosim scroll-scrub video (e sacadat). Redăm în buclă lin.
-  var isCoarse = (window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches) ||
-                 (navigator.maxTouchPoints > 0) || ("ontouchstart" in window);
 
   /* ---------- Link-uri din config ---------- */
   var telHref = "tel:+" + (cfg.phoneIntl || "");
@@ -170,29 +167,73 @@
     nums.forEach(function (n) { io2.observe(n); });
   }
 
-  /* ---------- Showcase: scroll-scrub video ---------- */
-  var showcase = document.querySelector(".showcase");
-  var sv = document.getElementById("showcaseVideo");
-  var svDur = 0, svReady = false;
-  if (showcase && sv) {
-    sv.addEventListener("loadedmetadata", function () { svDur = sv.duration || 0; svReady = true; });
-    // Lazy: încarcă clipul DOAR când te apropii de secțiune (economie la încărcarea inițială).
-    var svStarted = false;
-    function startShowcase() {
-      if (svStarted) return; svStarted = true;
-      sv.preload = "auto";
-      try { sv.load(); } catch (e) {}
-      var pl = sv.play(); if (pl && pl.catch) pl.catch(function () {});
+  /* ---------- Showcase: secvență de cadre derulată la scroll (fluid pe mobil) ---------- */
+  (function () {
+    var showcase = document.querySelector(".showcase");
+    var canvas = document.getElementById("seqCanvas");
+    if (!showcase || !canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext("2d");
+    var FRAMES = 48;
+    function pad(n) { return ("00" + n).slice(-3); }
+    var imgs = new Array(FRAMES);
+    var started = false, inView = false, raf = null;
+    var curr = 0, target = 0;
+
+    function sizeCanvas() {
+      var w = window.innerWidth, h = window.innerHeight;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + "px"; canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function draw(i) {
+      var img = imgs[Math.max(0, Math.min(FRAMES - 1, Math.round(i)))];
+      if (!img || !img.complete || !img.naturalWidth) return;
+      var cw = window.innerWidth, ch = window.innerHeight;
+      var ir = img.naturalWidth / img.naturalHeight, cr = cw / ch, dw, dh, dx, dy;
+      if (ir > cr) { dh = ch; dw = ch * ir; dx = (cw - dw) / 2; dy = 0; }
+      else { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+    function preload() {
+      if (started) return; started = true;
+      sizeCanvas();
+      for (var i = 0; i < FRAMES; i++) {
+        (function (k) {
+          var im = new Image();
+          im.decoding = "async";
+          im.onload = function () { if (k === 0) draw(0); };
+          im.src = "assets/img/seq/f" + pad(k + 1) + ".webp";
+          imgs[k] = im;
+        })(i);
+      }
+    }
+    function progress() {
+      var r = showcase.getBoundingClientRect();
+      var total = showcase.offsetHeight - window.innerHeight;
+      if (total <= 0) return 0;
+      return Math.min(1, Math.max(0, -r.top / total));
+    }
+    function tick() {
+      target = progress() * (FRAMES - 1);
+      if (reduce) { curr = target; draw(curr); raf = null; return; }
+      curr += (target - curr) * 0.18;
+      if (Math.abs(target - curr) < 0.04) curr = target;
+      draw(curr);
+      raf = inView ? requestAnimationFrame(tick) : null;
     }
     if ("IntersectionObserver" in window) {
-      var svio = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { startShowcase(); svio.disconnect(); } });
-      }, { rootMargin: "500px 0px" });
-      svio.observe(showcase);
-    } else {
-      startShowcase();
-    }
-  }
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          inView = e.isIntersecting;
+          if (e.isIntersecting) { preload(); if (!raf) raf = requestAnimationFrame(tick); }
+        });
+      }, { rootMargin: "600px 0px" });
+      io.observe(showcase);
+    } else { preload(); inView = true; raf = requestAnimationFrame(tick); }
+
+    window.addEventListener("resize", function () { if (started) { sizeCanvas(); draw(curr); } }, { passive: true });
+  })();
 
   /* ---------- Loop unic de scroll (rAF) — parallax hero, scrub, nav ---------- */
   var heroContent = document.querySelector(".hero__content");
@@ -210,22 +251,6 @@
       if (heroMedia) heroMedia.style.transform = "translate3d(0," + (y * 0.12) + "px,0) scale(1.06)";
     }
 
-    // Showcase video:
-    //  - MOBIL (touch): rulează în buclă lin, FĂRĂ scrub → zero sacadare.
-    //  - DESKTOP: scroll-scrub (cadrul urmează scroll-ul).
-    if (!reduce && !isCoarse && showcase && sv && svReady && svDur) {
-      var rect = showcase.getBoundingClientRect();
-      var total = showcase.offsetHeight - vh;
-      var seekEnd = (sv.seekable && sv.seekable.length) ? sv.seekable.end(0) : 0;
-      if (total > 0 && rect.top <= 0 && rect.bottom >= vh && seekEnd > 1) {
-        if (!sv.paused) sv.pause();
-        var p = Math.min(1, Math.max(0, -rect.top / total));
-        var tgt = p * (Math.min(svDur, seekEnd) - 0.05);
-        if (Math.abs(tgt - sv.currentTime) > 0.04) { try { sv.currentTime = tgt; } catch (e) {} }
-      } else if (sv.paused && svStarted) {
-        var p2 = sv.play(); if (p2 && p2.catch) p2.catch(function () {});
-      }
-    }
   }
   function requestFrame() { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }
   window.addEventListener("scroll", requestFrame, { passive: true });
