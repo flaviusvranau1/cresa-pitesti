@@ -85,9 +85,80 @@
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
 
-  /* ---------- Hero video: oprește pe reduced-motion / fallback ---------- */
+  /* ---------- Hero video: fallback la eroare ---------- */
   var hero = document.getElementById("heroVideo");
   if (hero) {
     hero.addEventListener("error", function () { hero.style.display = "none"; });
   }
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Count-up pentru statistici ---------- */
+  function countUp(el) {
+    var target = parseFloat(el.getAttribute("data-count"));
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (reduce) { el.textContent = target + suffix; return; }
+    var dur = 1300, t0 = null;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var nums = document.querySelectorAll(".stat__num[data-count]");
+  if (nums.length && "IntersectionObserver" in window) {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); io2.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    nums.forEach(function (n) { io2.observe(n); });
+  }
+
+  /* ---------- Showcase: scroll-scrub video ---------- */
+  var showcase = document.querySelector(".showcase");
+  var sv = document.getElementById("showcaseVideo");
+  var svDur = 0, svReady = false;
+  if (showcase && sv) {
+    sv.addEventListener("loadedmetadata", function () { svDur = sv.duration || 0; svReady = true; });
+    // Implicit redă în buclă (mereu cinematic). Scrub-ul preia controlul doar
+    // unde browser-ul/host-ul suportă seek (range requests).
+    var pl = sv.play(); if (pl && pl.catch) pl.catch(function () {});
+  }
+
+  /* ---------- Loop unic de scroll (rAF) — parallax hero, scrub, nav ---------- */
+  var heroContent = document.querySelector(".hero__content");
+  var heroMedia = document.querySelector(".hero__media");
+  var ticking = false;
+  function onFrame() {
+    ticking = false;
+    var y = window.scrollY || window.pageYOffset;
+    var vh = window.innerHeight;
+
+    // parallax + fade hero (subtil)
+    if (!reduce && heroContent && y < vh) {
+      heroContent.style.transform = "translate3d(0," + (y * 0.16) + "px,0)";
+      heroContent.style.opacity = Math.max(0, 1 - y / (vh * 0.72));
+      if (heroMedia) heroMedia.style.transform = "translate3d(0," + (y * 0.12) + "px,0) scale(1.06)";
+    }
+
+    // scroll-scrub showcase video (doar dacă e seekable; altfel rămâne pe loop)
+    if (!reduce && showcase && sv && svReady && svDur) {
+      var rect = showcase.getBoundingClientRect();
+      var total = showcase.offsetHeight - vh;
+      var seekEnd = (sv.seekable && sv.seekable.length) ? sv.seekable.end(0) : 0;
+      if (total > 0 && rect.top <= 0 && rect.bottom >= 0 && seekEnd > 1) {
+        if (!sv.paused) sv.pause();
+        var p = Math.min(1, Math.max(0, -rect.top / total));
+        try { sv.currentTime = p * (Math.min(svDur, seekEnd) - 0.05); } catch (e) {}
+      } else if (rect.bottom < 0 || rect.top > vh) {
+        if (sv.paused && seekEnd <= 1) { var p2 = sv.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+      }
+    }
+  }
+  function requestFrame() { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }
+  window.addEventListener("scroll", requestFrame, { passive: true });
+  window.addEventListener("resize", requestFrame, { passive: true });
+  requestFrame();
 })();

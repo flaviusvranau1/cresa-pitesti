@@ -43,7 +43,24 @@ Fișier de progres. Îl actualizez la fiecare etapă: ce am făcut, decizii, und
 
 **Urmează (cu Flavius):**
 - [ ] Primit datele reale de contact (telefon/adresă/email/WhatsApp) → completat `config.js` + JSON-LD.
-- [ ] Primit pozele reale → înlocuit placeholderele.
+- [ ] Primit pozele reale → înlocuit imaginile cinematice provizorii.
 - [ ] Deploy Cloudflare Pages + cumpărat/legat `cresapitesti.ro` (pași în README).
 - [ ] Feedback paletă (pot da 2–3 variante).
 - [ ] Eventual clonare pe `gradinitapitesti.ro`.
+
+---
+
+## 2026-06-30 — Build v2 (feedback Flavius: subtil + „fură ochiul" + poze)
+
+**Feedback primit:** hero prea mare/evident (mai subtil), să adaug un al doilea clip care „se derulează la scroll", elemente care fură ochiul, și să folosesc poze + să îmbogățesc programul cu activități extra.
+
+**Făcut:**
+- [x] **Hero rafinat**: titlu mai mic (clamp 1.85–3.15rem), weight 500, linia 2 italic elegant în loc de galben strident; lead mai scurt. Mult mai subtil.
+- [x] **Al doilea clip Higgsfield** (Veo 3.1, 8s, cameră de creație cu cuburi colorate/plante/lumină) → optimizat pentru **scroll-scrub** (keyframe-uri dese), 1.5M + poster.
+- [x] **Showcase scroll-scrub**: secțiune pinned (sticky) unde clipul se derulează cadru-cu-cadru la scroll. Robust: redă în buclă implicit (mereu cinematic) și preia scrub doar unde host-ul suportă seek (range requests). Verificat: scrub proporțional funcțional.
+- [x] **Elemente „fură ochiul"**: bandă stats cu **count-up** (100% / 12+ / 6luni–6ani / 1:5), **marquee** animat cu activitățile, **parallax + fade** subtil pe hero la scroll, hover-zoom pe imagini.
+- [x] **Secțiune Activități opționale** (înot, robotică, engleză, Micii Picasso, gimnastică, logopedie + marquee complet).
+- [x] **Poze reale folosite**: documentele aveau doar capturi de ecran + **stock-uri din tema ChildIT (themeforest)** — nesigure de folosit (licență + fețe + watermark). Soluție: am extras **cadre cinematice din clipurile Higgsfield** (licențiate, fără fețe) și le-am pus ca imagini reale în „Despre" și „Alimentație & Siguranță". Se vor înlocui ușor cu pozele reale ale clientului.
+- [x] Meniu actualizat (+ Activități). Verificat desktop+mobil: fără overflow, fără erori consolă.
+
+**Note:** credite Higgsfield rămase ~28 (2 clipuri generate). Decizie de discutat cu Flavius: pozele reale ale creșei (înot/natură/activități) trebuie trimise ca **fișiere**, nu din docx (acelea sunt screenshot-uri/stock).

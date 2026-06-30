@@ -97,9 +97,9 @@
     <nav class="nav__links" aria-label="Navigare principală">
       <a href="#despre">Despre</a>
       <a href="#metoda">Metodă</a>
-      <a href="#alimentatie">Alimentație &amp; Siguranță</a>
       <a href="#program">Program</a>
-      <a href="#intrebari">Întrebări</a>
+      <a href="#activitati">Activități</a>
+      <a href="#alimentatie">Alimentație</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -125,8 +125,8 @@
 
   <div class="container hero__content">
     <p class="eyebrow eyebrow--light">Creșă &amp; grădiniță privată în Pitești</p>
-    <h1 class="hero__title">Creșă privată în Pitești,<br/><span>cu grijă pentru fiecare copil</span></h1>
-    <p class="hero__lead">Un mediu cald, sigur și luminos, în care cei mici descoperă lumea în ritmul lor — de la 6 luni până la 6 ani. Grupe mici, educatori dedicați și comunicare deschisă cu părinții.</p>
+    <h1 class="hero__title">Creșă privată în Pitești,<br/><em>cu grijă pentru fiecare copil</em></h1>
+    <p class="hero__lead">Un mediu cald, sigur și luminos, în care cei mici descoperă lumea în ritmul lor — de la 6 luni la 6 ani.</p>
 
     <div class="hero__actions">
       <a class="btn btn--primary btn--lg" data-wa>
@@ -149,6 +149,16 @@
   <a href="#despre" class="hero__scroll" aria-label="Derulează în jos">
     <svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 16 6 10h12l-6 6Z" fill="currentColor"/></svg>
   </a>
+</section>
+
+<!-- ====================== STATS STRIP ====================== -->
+<section class="stats" aria-label="Pe scurt">
+  <div class="container stats__inner">
+    <div class="stat"><span class="stat__num" data-count="100" data-suffix="%">100%</span><span class="stat__label">Mese gătite zilnic în bucătărie proprie</span></div>
+    <div class="stat"><span class="stat__num" data-count="12" data-suffix="+">12+</span><span class="stat__label">Activități opționale pentru cei mici</span></div>
+    <div class="stat"><span class="stat__num">6 luni–6 ani</span><span class="stat__label">Grupe organizate pe vârste</span></div>
+    <div class="stat"><span class="stat__num">1 : 5</span><span class="stat__label">Atenție reală, în grupe mici</span></div>
+  </div>
 </section>
 
 <!-- ====================== DESPRE ====================== -->
@@ -179,9 +189,9 @@
     </div>
 
     <div class="feature-row">
-      <div class="ph ph--wide" data-ph="Foto: spațiu de grupă / loc de joacă">
-        <span>Aici vor apărea pozele reale ale creșei</span>
-      </div>
+      <figure class="shot shot--wide">
+        <img src="assets/img/spatiu-creatie.jpg" alt="Creșă privată Pitești – spațiu de creație luminos cu jucării din lemn și materiale Montessori" loading="lazy" width="1200" height="675" />
+      </figure>
       <ul class="checks">
         <li>Două spații exterioare de joacă, cu umbră naturală și artificială</li>
         <li>Grupe restrânse, pentru atenție individuală reală</li>
@@ -212,6 +222,21 @@
   </div>
 </section>
 
+<!-- ====================== SHOWCASE (scroll-scrub video) ====================== -->
+<section class="showcase" id="experienta" aria-label="O zi la creșă">
+  <div class="showcase__sticky">
+    <video class="showcase__video" id="showcaseVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/showcase-poster.jpg">
+      <source src="assets/video/showcase.mp4" type="video/mp4" />
+    </video>
+    <div class="showcase__veil"></div>
+    <div class="showcase__caption">
+      <p class="eyebrow eyebrow--light">Experiența de zi cu zi</p>
+      <h2>Lumină, joacă și descoperire<br/>în fiecare colț al zilei</h2>
+      <p>Derulează pentru a păși prin spațiile noastre.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ====================== ALIMENTAȚIE & SIGURANȚĂ ====================== -->
 <section class="section" id="alimentatie">
   <div class="container">
@@ -228,18 +253,21 @@
     </div>
 
     <div class="safety">
-      <h3 class="safety__title">Siguranță în fiecare detaliu</h3>
-      <div class="grid grid--2">
-        <ul class="checks">
-          <li><strong>Monitorizare video permanentă</strong>, pentru liniștea părinților</li>
-          <li>Spații adaptate fiecărei categorii de vârstă</li>
-          <li>Mobilier sigur și scaune speciale cu centuri pentru bebeluși</li>
-        </ul>
-        <ul class="checks">
-          <li>Personal instruit, prezent permanent lângă copii</li>
-          <li>Adaptăm meniul la alergii și intoleranțe</li>
-          <li>Comunicare deschisă și transparentă cu familia</li>
-        </ul>
+      <div class="safety__grid">
+        <figure class="shot">
+          <img src="assets/img/spatiu-lectura.jpg" alt="Creșă privată Pitești – colț de lectură luminos, sigur și primitor pentru copii" loading="lazy" width="1200" height="675" />
+        </figure>
+        <div>
+          <h3 class="safety__title">Siguranță în fiecare detaliu</h3>
+          <ul class="checks">
+            <li><strong>Monitorizare video permanentă</strong>, pentru liniștea părinților</li>
+            <li>Spații adaptate fiecărei categorii de vârstă</li>
+            <li>Mobilier sigur și scaune speciale cu centuri pentru bebeluși</li>
+            <li>Personal instruit, prezent permanent lângă copii</li>
+            <li>Adaptăm meniul la alergii și intoleranțe</li>
+            <li>Comunicare deschisă și transparentă cu familia</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -264,6 +292,35 @@
       <li><span class="timeline__time">15:10</span><div><h3>Gustare de după-amiază</h3><p>O nouă gustare sănătoasă, din ingrediente atent alese.</p></div></li>
       <li><span class="timeline__time">15:30 – 18:00</span><div><h3>Joacă &amp; activități recreative</h3><p>Jocuri, ateliere creative și timp petrecut în aer liber.</p></div></li>
     </ol>
+  </div>
+</section>
+
+<!-- ====================== ACTIVITĂȚI OPȚIONALE ====================== -->
+<section class="section" id="activitati">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow">Activități opționale</p>
+      <h2>Descoperim pasiuni, dezvoltăm talente</h2>
+      <p class="section__lead">Pe lângă programul zilnic, copiii pot explora domenii noi, alese cu grijă pentru a completa dezvoltarea lor — într-un mediu sigur și plin de bucurie.</p>
+    </header>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>🏊 Înot</span><span>🤖 Robotică</span><span>🇬🇧 Limba engleză</span><span>🎨 Micii Picasso</span><span>💃 Dans modern</span><span>🧂 Salinoterapie</span><span>🚀 Clubul Astronauților</span><span>🧪 Laboratorul lui Dexter</span><span>🤸 Gimnastică</span><span>🗣️ Logopedie</span><span>📚 ABC-ul Preșcolarului</span><span>🌱 Dezvoltare personală</span>
+      <span>🏊 Înot</span><span>🤖 Robotică</span><span>🇬🇧 Limba engleză</span><span>🎨 Micii Picasso</span><span>💃 Dans modern</span><span>🧂 Salinoterapie</span><span>🚀 Clubul Astronauților</span><span>🧪 Laboratorul lui Dexter</span><span>🤸 Gimnastică</span><span>🗣️ Logopedie</span><span>📚 ABC-ul Preșcolarului</span><span>🌱 Dezvoltare personală</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid grid--3 act-grid">
+      <article class="card act"><span class="act__icon">🏊</span><h3>Înot</h3><p>Inițiere timpurie în natație, pentru încredere, coordonare și un stil de viață activ.</p></article>
+      <article class="card act"><span class="act__icon">🤖</span><h3>Robotică &amp; tehnologie</h3><p>Primul contact cu logica și mecanica digitală, prin joc și experimente practice.</p></article>
+      <article class="card act"><span class="act__icon">🇬🇧</span><h3>Limba engleză</h3><p>Învățare naturală a limbii, prin cântece, povești și jocuri adaptate vârstei.</p></article>
+      <article class="card act"><span class="act__icon">🎨</span><h3>Micii Picasso</h3><p>Atelier de pictură și creație senzorială care stimulează imaginația și exprimarea.</p></article>
+      <article class="card act"><span class="act__icon">🤸</span><h3>Gimnastică &amp; dans</h3><p>Mișcare, ritm și motricitate, pentru un corp sănătos și multă energie pozitivă.</p></article>
+      <article class="card act"><span class="act__icon">🗣️</span><h3>Logopedie</h3><p>Sprijin pentru dezvoltarea limbajului și o comunicare clară și încrezătoare.</p></article>
+    </div>
   </div>
 </section>
 
