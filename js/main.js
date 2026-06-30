@@ -173,7 +173,7 @@
     var canvas = document.getElementById("seqCanvas");
     if (!showcase || !canvas || !canvas.getContext) return;
     var ctx = canvas.getContext("2d");
-    var FRAMES = 48;
+    var FRAMES = 72;
     function pad(n) { return ("00" + n).slice(-3); }
     var imgs = new Array(FRAMES);
     var started = false, inView = false, raf = null;
