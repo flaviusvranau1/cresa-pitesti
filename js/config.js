@@ -31,9 +31,9 @@ window.SITE_CONFIG = {
   facebook: "https://www.facebook.com/CresaPitesti",
   instagram: "",
 
-  // Google Maps — embed src. Generat din adresă (fără cheie API).
-  // Lasă gol "" ca să afișeze un placeholder elegant.
-  mapsEmbed: "https://www.google.com/maps?q=Bulevardul%20Republicii%2088%2C%20Pite%C8%99ti%2C%20Arge%C8%99&output=embed",
+  // Hartă: lăsat gol → se folosește OpenStreetMap din coordonatele de mai jos
+  // (fără cheie API, fără ecran de consimțământ). Butonul „Deschide harta" duce la Google Maps.
+  mapsEmbed: "",
 
   // Coordonate pentru schema (opțional, ajută SEO local) — aprox. Pitești
   geoLat: "44.8606",

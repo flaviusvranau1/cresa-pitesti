@@ -125,3 +125,13 @@ Notă: în preview nu se poate emula touch (isCoarse=false), deci se vede calea 
 - [x] Verificat desktop+mobil în preview: canvas desenează, cadrele se schimbă proporțional cu scroll-ul, fără erori, fără overflow.
 
 Rezultat: același efect „smecher" de scroll-scrub ca pe FERRUM, dar **fluid pe telefon** și mai ușor.
+
+---
+
+## 2026-06-30 — Build v7: date reale, recenzii, hartă
+
+**Făcut:**
+- [x] **Date reale de contact** (de pe akademybabygarten.ro): tel 0737 035 999, WhatsApp, email, adresă Bd. Republicii 88 Pitești, program. În `config.js` + JSON-LD. Facebook /CresaPitesti în footer (Instagram ascuns — brand Akademy).
+- [x] **Secțiune Recenzii** „Părinții din Pitești ne recomandă": statistici **reale verificate** (5/5, 425+ recenzii Google, 100% recomandări, TOP 100 of Romania) + buton spre recenziile reale. **NU am fabricat testimoniale** — textul verbatim al recenziilor Google nu e extractibil (consent wall + JS), iar site-ul lor are doar recenziile demo fake din tema ChildIT. De cerut lui Flavius 3-4 recenzii reale (text/screenshot) ca să adaug carduri cu citate.
+- [x] **Hartă mutată jos** într-o bandă full-width (`.mapband`) + card „Vino în vizită" cu adresă și buton „Deschide harta" (Google Maps). Embed = **OpenStreetMap** (din coordonate) — fără cheie API, fără ecran de consimțământ EU (Google `output=embed` risca consent wall în RO).
+- [x] Verificat mobil: recenzii 2×2, hartă OSM se randează, card static full-width, fără overflow/erori.

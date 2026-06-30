@@ -288,8 +288,35 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .faq__item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .faq__item p { padding: 0 24px 22px; color: var(--ink-soft); }
 
+/* ---------- Reviews ---------- */
+.section__head--center { text-align: center; margin-inline: auto; }
+.reviews-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 30px; }
+.rstat { background: var(--white); border-radius: var(--radius); padding: 28px 18px; text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(31,84,110,.06); }
+.rstat__num { display: block; font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 600; color: var(--sky-dark); line-height: 1; }
+.rstat__star { color: var(--sun); font-size: .8em; margin-left: 2px; }
+.rstat__label { display: block; font-size: .88rem; color: var(--ink-soft); margin-top: 8px; }
+.reviews-cta { text-align: center; }
+
+/* ---------- Map band ---------- */
+.mapband { position: relative; }
+.mapband__map { width: 100%; height: clamp(320px, 42vw, 460px); background: var(--sky-soft); }
+.mapband__map iframe { width: 100%; height: 100%; border: 0; display: block; filter: saturate(1.05); }
+.mapband__map .ph { height: 100%; border-radius: 0; border: 0; }
+.mapband__card {
+  position: absolute; left: clamp(16px, 5vw, 48px); bottom: clamp(16px, 4vw, 36px);
+  display: flex; align-items: center; gap: 14px; background: var(--white);
+  padding: 16px 22px; border-radius: 100px; box-shadow: var(--shadow); color: var(--ink);
+  transition: transform .2s var(--ease), box-shadow .2s;
+}
+.mapband__card:hover { transform: translateY(-2px); box-shadow: 0 24px 40px -20px rgba(31,84,110,.6); }
+.mapband__ico { font-size: 1.5rem; }
+.mapband__txt { display: flex; flex-direction: column; line-height: 1.25; }
+.mapband__txt strong { font-size: 1rem; }
+.mapband__txt span { font-size: .9rem; color: var(--ink-soft); }
+.mapband__go { font-weight: 700; color: var(--sky-dark); white-space: nowrap; }
+
 /* ---------- Contact ---------- */
-.contact { display: grid; grid-template-columns: 1fr 1.1fr; gap: 32px; }
+.contact { max-width: 680px; margin-inline: auto; }
 .contact__info { background: var(--white); border-radius: var(--radius-lg); padding: clamp(26px, 4vw, 40px); box-shadow: var(--shadow); }
 .contact__row { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid rgba(31,84,110,.08); }
 .contact__row:last-of-type { border-bottom: 0; }
@@ -372,6 +399,9 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
   .marquee__track span { font-size: .92rem; padding: 9px 16px; }
   .gallery__nav { display: none; }
   .slide { width: 85vw; }
+  .reviews-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .mapband__card { position: static; left: auto; bottom: auto; width: 100%; border-radius: 0; justify-content: space-between; gap: 8px; padding: 14px 18px; }
+  .mapband__go { font-size: .85rem; }
 }
 
 @media (max-width: 420px) {

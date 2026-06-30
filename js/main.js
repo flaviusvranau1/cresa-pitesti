@@ -38,16 +38,27 @@
   document.querySelectorAll("[data-instagram]").forEach(function (el) {
     if (cfg.instagram) { el.setAttribute("href", cfg.instagram); el.hidden = false; }
   });
+  document.querySelectorAll("[data-maps-link]").forEach(function (el) {
+    var q = [cfg.addressStreet, cfg.addressCity, cfg.addressRegion].filter(Boolean).join(", ");
+    el.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q || "Pitești"));
+  });
 
-  /* ---------- Hartă (dacă există embed în config) ---------- */
-  if (cfg.mapsEmbed) {
+  /* ---------- Hartă (OpenStreetMap — fără cheie, fără consimțământ EU) ---------- */
+  (function () {
     var holder = document.getElementById("mapHolder");
-    if (holder) {
-      holder.innerHTML = '<iframe src="' + cfg.mapsEmbed + '" loading="lazy" ' +
-        'referrerpolicy="no-referrer-when-downgrade" title="Hartă — Creșă Pitești" ' +
-        'allowfullscreen></iframe>';
+    if (!holder) return;
+    var src = cfg.mapsEmbed;
+    if (!src && cfg.geoLat && cfg.geoLng) {
+      var lat = parseFloat(cfg.geoLat), lon = parseFloat(cfg.geoLng);
+      var bbox = (lon - 0.012) + "," + (lat - 0.006) + "," + (lon + 0.012) + "," + (lat + 0.006);
+      src = "https://www.openstreetmap.org/export/embed.html?bbox=" + encodeURIComponent(bbox) +
+            "&layer=mapnik&marker=" + lat + "," + lon;
     }
-  }
+    if (src) {
+      holder.innerHTML = '<iframe src="' + src + '" loading="lazy" title="Hartă — Creșă Pitești" ' +
+        'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>';
+    }
+  })();
 
   /* ---------- An curent în footer ---------- */
   var y = document.getElementById("year");
