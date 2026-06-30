@@ -162,6 +162,9 @@
     function step() { var c = track.querySelector(".tcard"); return c ? c.getBoundingClientRect().width + 18 : 360; }
     var paused = false, resumeT = null;
     function hold() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 9000); }
+    var tPrev = document.getElementById("tPrev"), tNext = document.getElementById("tNext");
+    if (tNext) tNext.addEventListener("click", function () { track.scrollBy({ left: step(), behavior: "smooth" }); hold(); });
+    if (tPrev) tPrev.addEventListener("click", function () { track.scrollBy({ left: -step(), behavior: "smooth" }); hold(); });
     if (!reduce) {
       setInterval(function () {
         if (paused) return;
