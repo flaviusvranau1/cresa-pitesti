@@ -81,3 +81,18 @@ Fișier de progres. Îl actualizez la fiecare etapă: ce am făcut, decizii, und
 - [x] `.nojekyll` + deploy **GitHub Pages** (link live pentru telefon). Repo făcut public temporar pentru Pages; mutăm pe Cloudflare privat ulterior.
 
 **Note:** total assets ~5.3M (2 clipuri 2.1M + galerie 2.8M), dar lazy-load → încărcare inițială ușoară. Pozele reale au fețe de copii (oferite de client pt. marketing).
+
+---
+
+## 2026-06-30 — Build v4 (galerie cu filtre + performanță + live public)
+
+**Feedback Flavius:** flow galerie mai lejer; **filtre pe categorii** (la click se filtrează); mai multe poze dar **fără să îngreuneze** (încărcare doar când trebuie); fix la secțiunea CTA (nu era centrată); și **pune-l live pe GitHub public** ca să-l vadă clientul.
+
+**Făcut:**
+- [x] **Galerie cu filtre**: 6 categorii (Toate/Înot/În aer liber/Ateliere creative/Joacă & socializare/Mese sănătoase). Click pe etichetă → se afișează doar pozele din categorie (verificat: 2/5/6/9/4/26).
+- [x] **26 poze** curatate pe categorii (de la 16), recomprimate (max 1100px, q76, ~135KB medie), `loading="lazy" decoding="async"` → se încarcă doar când intră în viewport.
+- [x] **Flow mai lejer**: scroll-snap `proximity` (nu `mandatory`), autoplay mai lent (4.6s), eliminat punctele (26 ar fi fost prea multe), rămân săgeți + swipe.
+- [x] **Video showcase lazy**: `preload="none"` + start la apropiere (IntersectionObserver, rootMargin 500px) → **economie ~1.5MB** la încărcarea inițială.
+- [x] **CTA „Primul pas..."** centrat (era aliniat stânga) — coloană centrată, butoane pe mijloc.
+- [x] Verificat desktop+mobil: fără overflow, fără erori, filtre OK, lazy OK.
+- [x] Live pe **GitHub Pages** (repo public, autorizat de Flavius pentru a-l arăta clientului; mutăm pe Cloudflare privat când e gata).

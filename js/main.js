@@ -86,48 +86,55 @@
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
 
-  /* ---------- Galerie slider ---------- */
+  /* ---------- Galerie: filtre + slider ---------- */
   (function () {
     var track = document.getElementById("galleryTrack");
     if (!track) return;
-    var slides = track.querySelectorAll(".slide");
+    var slides = [].slice.call(track.querySelectorAll(".slide"));
     var prev = document.getElementById("galPrev");
     var next = document.getElementById("galNext");
-    var dotsWrap = document.getElementById("galleryDots");
-    function step() { var s = track.querySelector(".slide"); return s ? s.getBoundingClientRect().width + 16 : 320; }
+    var filters = document.getElementById("galleryFilters");
+
+    function step() {
+      var s = track.querySelector(".slide:not(.is-hidden)");
+      return s ? s.getBoundingClientRect().width + 16 : 320;
+    }
     function go(dir) { track.scrollBy({ left: dir * step(), behavior: "smooth" }); }
 
-    var paused = false, resumeT = null, timer = null;
-    function holdPause() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 9000); }
+    var paused = false, resumeT = null;
+    function holdPause() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 10000); }
 
     if (next) next.addEventListener("click", function () { go(1); holdPause(); });
     if (prev) prev.addEventListener("click", function () { go(-1); holdPause(); });
 
-    var dots = [];
-    slides.forEach(function (s, i) {
-      var b = document.createElement("button");
-      b.setAttribute("aria-label", "Mergi la imaginea " + (i + 1));
-      b.addEventListener("click", function () { track.scrollTo({ left: i * step(), behavior: "smooth" }); holdPause(); });
-      dotsWrap.appendChild(b); dots.push(b);
-    });
-    function syncDots() {
-      var i = Math.round(track.scrollLeft / step());
-      dots.forEach(function (d, k) { d.classList.toggle("is-active", k === i); });
+    // filtre pe categorii
+    if (filters) {
+      filters.addEventListener("click", function (e) {
+        var btn = e.target.closest(".gfilter");
+        if (!btn) return;
+        var cat = btn.getAttribute("data-filter");
+        filters.querySelectorAll(".gfilter").forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        slides.forEach(function (s) {
+          var show = cat === "toate" || s.getAttribute("data-cat") === cat;
+          s.classList.toggle("is-hidden", !show);
+        });
+        track.scrollTo({ left: 0, behavior: "smooth" });
+        holdPause();
+      });
     }
-    track.addEventListener("scroll", function () { requestAnimationFrame(syncDots); }, { passive: true });
-    syncDots();
 
-    // autoplay (oprit pe reduced-motion)
+    // autoplay lejer (oprit pe reduced-motion)
     if (!reduce) {
-      timer = setInterval(function () {
+      setInterval(function () {
         if (paused) return;
         if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 6) {
           track.scrollTo({ left: 0, behavior: "smooth" });
         } else { go(1); }
-      }, 3800);
+      }, 4600);
       track.addEventListener("mouseenter", function () { paused = true; });
       track.addEventListener("mouseleave", function () { paused = false; });
-      track.addEventListener("pointerdown", function () { holdPause(); });
+      track.addEventListener("pointerdown", holdPause, { passive: true });
+      track.addEventListener("touchstart", holdPause, { passive: true });
     }
   })();
 
@@ -166,9 +173,22 @@
   var svDur = 0, svReady = false;
   if (showcase && sv) {
     sv.addEventListener("loadedmetadata", function () { svDur = sv.duration || 0; svReady = true; });
-    // Implicit redă în buclă (mereu cinematic). Scrub-ul preia controlul doar
-    // unde browser-ul/host-ul suportă seek (range requests).
-    var pl = sv.play(); if (pl && pl.catch) pl.catch(function () {});
+    // Lazy: încarcă clipul DOAR când te apropii de secțiune (economie la încărcarea inițială).
+    var svStarted = false;
+    function startShowcase() {
+      if (svStarted) return; svStarted = true;
+      sv.preload = "auto";
+      try { sv.load(); } catch (e) {}
+      var pl = sv.play(); if (pl && pl.catch) pl.catch(function () {});
+    }
+    if ("IntersectionObserver" in window) {
+      var svio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { startShowcase(); svio.disconnect(); } });
+      }, { rootMargin: "500px 0px" });
+      svio.observe(showcase);
+    } else {
+      startShowcase();
+    }
   }
 
   /* ---------- Loop unic de scroll (rAF) — parallax hero, scrub, nav ---------- */
