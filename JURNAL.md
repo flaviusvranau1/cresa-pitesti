@@ -135,3 +135,16 @@ Rezultat: același efect „smecher" de scroll-scrub ca pe FERRUM, dar **fluid p
 - [x] **Secțiune Recenzii** „Părinții din Pitești ne recomandă": statistici **reale verificate** (5/5, 425+ recenzii Google, 100% recomandări, TOP 100 of Romania) + buton spre recenziile reale. **NU am fabricat testimoniale** — textul verbatim al recenziilor Google nu e extractibil (consent wall + JS), iar site-ul lor are doar recenziile demo fake din tema ChildIT. De cerut lui Flavius 3-4 recenzii reale (text/screenshot) ca să adaug carduri cu citate.
 - [x] **Hartă mutată jos** într-o bandă full-width (`.mapband`) + card „Vino în vizită" cu adresă și buton „Deschide harta" (Google Maps). Embed = **OpenStreetMap** (din coordonate) — fără cheie API, fără ecran de consimțământ EU (Google `output=embed` risca consent wall în RO).
 - [x] Verificat mobil: recenzii 2×2, hartă OSM se randează, card static full-width, fără overflow/erori.
+
+---
+
+## 2026-06-30 — v8: doar CREȘĂ (până la 3 ani) + chips-uri clickabile
+
+**Feedback Flavius:** site-ul e doar creșă → vârsta e până la 3 ani (nu 6); chips-urile din hero par butoane dar nu duc nicăieri.
+
+**Făcut:**
+- [x] Schimbat **peste tot „6 ani" → „3 ani"** (meta, OG, Twitter, JSON-LD, FAQ, hero eyebrow/lead/chip, stat, footer, manifest).
+- [x] Scos „& grădiniță" din eyebrow/footer/JSON-LD (rămâne doar ca „tranziție firească spre grădiniță" — pt. gradinitapitesti.ro).
+- [x] Activități adaptate creșei: scos Robotică/Clubul Astronauților/Laboratorul lui Dexter/ABC-ul Preșcolarului din marquee; cardul „Robotică" → „Muzică & ritm". Păstrat înot, gimnastică, dans, engleză, pictură senzorială, salinoterapie, muzică, joc senzorial, logopedie.
+- [x] **Chips-urile din hero acum sunt link-uri** către secțiuni (#despre / #alimentatie) — verificat că ancora scrollează corect. Au și hover.
+- [x] Verificat: fără 6 ani/robotică/preșcolar rămase, fără erori, navigare ancore OK.
