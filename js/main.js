@@ -32,6 +32,12 @@
   document.querySelectorAll("[data-hours]").forEach(function (el) {
     if (cfg.hours) el.textContent = cfg.hours;
   });
+  document.querySelectorAll("[data-facebook]").forEach(function (el) {
+    if (cfg.facebook) { el.setAttribute("href", cfg.facebook); el.hidden = false; }
+  });
+  document.querySelectorAll("[data-instagram]").forEach(function (el) {
+    if (cfg.instagram) { el.setAttribute("href", cfg.instagram); el.hidden = false; }
+  });
 
   /* ---------- Hartă (dacă există embed în config) ---------- */
   if (cfg.mapsEmbed) {

@@ -311,6 +311,9 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .footer__links a:hover { color: #fff; }
 .footer__contact { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .footer__phone a { color: #fff; font-weight: 700; font-size: 1.05rem; }
+.footer__social { display: flex; gap: 10px; }
+.footer__social a { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.1); color: #fff; transition: background .2s, transform .2s; }
+.footer__social a:hover { background: var(--sky); transform: translateY(-2px); }
 .footer__anpc { font-size: .8rem; letter-spacing: .1em; border: 1px solid rgba(255,255,255,.3); padding: 5px 12px; border-radius: 8px; opacity: .8; }
 .footer__bottom { border-top: 1px solid rgba(255,255,255,.1); padding: 18px 0; font-size: .85rem; }
 .footer__bottom p { opacity: .7; }
