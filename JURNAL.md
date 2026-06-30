@@ -64,3 +64,20 @@ Fișier de progres. Îl actualizez la fiecare etapă: ce am făcut, decizii, und
 - [x] Meniu actualizat (+ Activități). Verificat desktop+mobil: fără overflow, fără erori consolă.
 
 **Note:** credite Higgsfield rămase ~28 (2 clipuri generate). Decizie de discutat cu Flavius: pozele reale ale creșei (înot/natură/activități) trebuie trimise ca **fișiere**, nu din docx (acelea sunt screenshot-uri/stock).
+
+---
+
+## 2026-06-30 — Build v3 (poze reale + galerie + live)
+
+**Feedback Flavius:** a trimis **154 poze reale** (3 foldere WhatsApp). Cerințe: înlocuiește nr. de telefon cu „Contactează-ne"; folosește pozele (top ~15, alegerea mea) într-un **slider frumos**, cu înot + activități în aer liber/pădure + educație, accent pe **fericire**; apoi **dă-l live** să-l vadă pe telefon.
+
+**Făcut:**
+- [x] Indexat toate cele 154 poze (planșe de contact) și **curatat 16** cele mai vesele, pe teme: înot (#10,19), natură/pădure (#61,63,65), creație (#105,143,151), joacă/baloane (#27,40,46), mâncare sănătoasă (#69,79), zâmbete (#107,128,133).
+- [x] Optimizat pentru web (max 1280px, ~120–270KB fiecare, lazy-load) → `assets/img/gallery/`.
+- [x] **Galerie slider** nouă (#galerie): scroll-snap, autoplay, săgeți, puncte, swipe pe mobil, etichete pe teme. + link „Galerie" în meniu.
+- [x] Înlocuit imaginile cinematice provizorii din „Despre" și „Alimentație" cu **poze reale** (copil fericit / mâncare sănătoasă).
+- [x] Nr. telefon afișat → **„Contactează-ne"** (rămâne `tel:`), în navbar, footer, contact, CTA.
+- [x] Verificat desktop+mobil: 16 slides/puncte, fără overflow, fără erori consolă, etichete corecte.
+- [x] `.nojekyll` + deploy **GitHub Pages** (link live pentru telefon). Repo făcut public temporar pentru Pages; mutăm pe Cloudflare privat ulterior.
+
+**Note:** total assets ~5.3M (2 clipuri 2.1M + galerie 2.8M), dar lazy-load → încărcare inițială ușoară. Pozele reale au fețe de copii (oferite de client pt. marketing).

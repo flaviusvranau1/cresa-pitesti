@@ -4,6 +4,7 @@
 (function () {
   "use strict";
   var cfg = window.SITE_CONFIG || {};
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Link-uri din config ---------- */
   var telHref = "tel:+" + (cfg.phoneIntl || "");
@@ -85,13 +86,56 @@
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---------- Galerie slider ---------- */
+  (function () {
+    var track = document.getElementById("galleryTrack");
+    if (!track) return;
+    var slides = track.querySelectorAll(".slide");
+    var prev = document.getElementById("galPrev");
+    var next = document.getElementById("galNext");
+    var dotsWrap = document.getElementById("galleryDots");
+    function step() { var s = track.querySelector(".slide"); return s ? s.getBoundingClientRect().width + 16 : 320; }
+    function go(dir) { track.scrollBy({ left: dir * step(), behavior: "smooth" }); }
+
+    var paused = false, resumeT = null, timer = null;
+    function holdPause() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 9000); }
+
+    if (next) next.addEventListener("click", function () { go(1); holdPause(); });
+    if (prev) prev.addEventListener("click", function () { go(-1); holdPause(); });
+
+    var dots = [];
+    slides.forEach(function (s, i) {
+      var b = document.createElement("button");
+      b.setAttribute("aria-label", "Mergi la imaginea " + (i + 1));
+      b.addEventListener("click", function () { track.scrollTo({ left: i * step(), behavior: "smooth" }); holdPause(); });
+      dotsWrap.appendChild(b); dots.push(b);
+    });
+    function syncDots() {
+      var i = Math.round(track.scrollLeft / step());
+      dots.forEach(function (d, k) { d.classList.toggle("is-active", k === i); });
+    }
+    track.addEventListener("scroll", function () { requestAnimationFrame(syncDots); }, { passive: true });
+    syncDots();
+
+    // autoplay (oprit pe reduced-motion)
+    if (!reduce) {
+      timer = setInterval(function () {
+        if (paused) return;
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 6) {
+          track.scrollTo({ left: 0, behavior: "smooth" });
+        } else { go(1); }
+      }, 3800);
+      track.addEventListener("mouseenter", function () { paused = true; });
+      track.addEventListener("mouseleave", function () { paused = false; });
+      track.addEventListener("pointerdown", function () { holdPause(); });
+    }
+  })();
+
   /* ---------- Hero video: fallback la eroare ---------- */
   var hero = document.getElementById("heroVideo");
   if (hero) {
     hero.addEventListener("error", function () { hero.style.display = "none"; });
   }
-
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Count-up pentru statistici ---------- */
   function countUp(el) {
