@@ -155,6 +155,26 @@
     }
   })();
 
+  /* ---------- Testimonials slider (autoplay + swipe) ---------- */
+  (function () {
+    var track = document.getElementById("tTrack");
+    if (!track) return;
+    function step() { var c = track.querySelector(".tcard"); return c ? c.getBoundingClientRect().width + 18 : 360; }
+    var paused = false, resumeT = null;
+    function hold() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 9000); }
+    if (!reduce) {
+      setInterval(function () {
+        if (paused) return;
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 6) track.scrollTo({ left: 0, behavior: "smooth" });
+        else track.scrollBy({ left: step(), behavior: "smooth" });
+      }, 5200);
+      track.addEventListener("mouseenter", function () { paused = true; });
+      track.addEventListener("mouseleave", function () { paused = false; });
+      track.addEventListener("pointerdown", hold, { passive: true });
+      track.addEventListener("touchstart", hold, { passive: true });
+    }
+  })();
+
   /* ---------- Hero video: fallback la eroare ---------- */
   var hero = document.getElementById("heroVideo");
   if (hero) {
