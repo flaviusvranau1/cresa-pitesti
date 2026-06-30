@@ -148,3 +148,19 @@ Rezultat: același efect „smecher" de scroll-scrub ca pe FERRUM, dar **fluid p
 - [x] Activități adaptate creșei: scos Robotică/Clubul Astronauților/Laboratorul lui Dexter/ABC-ul Preșcolarului din marquee; cardul „Robotică" → „Muzică & ritm". Păstrat înot, gimnastică, dans, engleză, pictură senzorială, salinoterapie, muzică, joc senzorial, logopedie.
 - [x] **Chips-urile din hero acum sunt link-uri** către secțiuni (#despre / #alimentatie) — verificat că ancora scrollează corect. Au și hover.
 - [x] Verificat: fără 6 ani/robotică/preșcolar rămase, fără erori, navigare ancore OK.
+
+---
+
+## 2026-06-30 — v9: audit + upgrade SEO de înaltă calitate
+
+**Audit:** baza era solidă (title/meta/canonical/OG/sitemap/robots/JSON-LD/1×H1/alt-uri/lazy). Gaps: schema incompletă, H2-uri fără cuvinte-cheie, lipsă context local în text, lipsă meta geo, FAQ schema 5≠6.
+
+**Făcut:**
+- [x] **Schema îmbogățită**: `["ChildCare","LocalBusiness"]` + `@id`, `alternateName`, `sameAs` (Facebook+Instagram), `hasMap`, `logo`, `image` (3), `areaServed` (Pitești+Argeș), `currenciesAccepted`, `slogan`. FAQ sincronizat la 6 întrebări.
+- [x] **Meta geo** (RO-AG, position, ICBM, placename) + `og:image:alt`/`twitter:image:alt` + `keywords` + aliniat `og:title`.
+- [x] **H2-uri cu cuvinte-cheie**: Metoda educațională / Alimentație sănătoasă și siguranță / Program zilnic la creșă / Contact – Creșă privată în Pitești.
+- [x] **Context local în text**: „în zona centrală (Bulevardul Republicii)" la Despre + „Ne găsești în centrul Piteștiului" la Contact.
+- [x] Densitate naturală verificată: Pitești 20×, creșă 14×, creșă privată 9×, program 17× (fără stuffing). title 57c afișat, meta desc 159c.
+- [x] Revalidat: JSON-LD valid în browser, 1 H1/11 H2, fără overflow, fără erori.
+
+**Notă SEO (de comunicat):** stelele ★ în Google la afaceri locale vin din **Google Business Profile**, nu din schema on-page — deci NU am pus `aggregateRating` fals. Pentru ranking real mai trebuie (off-page, în README): GBP optimizat, NAP consecvent, citații/directoare, Search Console + sitemap submit, backlink-uri locale. Site-ul (on-page) e acum la nivel înalt.

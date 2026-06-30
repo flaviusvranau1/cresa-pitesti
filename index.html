@@ -11,21 +11,30 @@
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#34B3D6" />
 <meta name="author" content="Creșă Pitești" />
+<meta name="keywords" content="creșă Pitești, creșă privată Pitești, creșă centru Pitești, creșă Bulevardul Republicii, înscrieri creșă Pitești, creșă Montessori Pitești" />
+
+<!-- Geo (local) -->
+<meta name="geo.region" content="RO-AG" />
+<meta name="geo.placename" content="Pitești" />
+<meta name="geo.position" content="44.8606;24.8678" />
+<meta name="ICBM" content="44.8606, 24.8678" />
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="ro_RO" />
 <meta property="og:site_name" content="Creșă Pitești" />
-<meta property="og:title" content="Creșă Privată în Pitești | Grupe Mici, Bucătărie Proprie, Siguranță" />
+<meta property="og:title" content="Creșă Privată în Pitești | Grupe Mici &amp; Bucătărie Proprie" />
 <meta property="og:description" content="Creșă privată în Pitești pentru copii de la 6 luni la 3 ani: grupe mici, educatori dedicați, bucătărie proprie și monitorizare video." />
 <meta property="og:url" content="https://cresapitesti.ro/" />
 <meta property="og:image" content="https://cresapitesti.ro/assets/img/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Creșă privată în Pitești — spațiu luminos și sigur pentru copii" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Creșă Privată în Pitești" />
 <meta name="twitter:description" content="Grupe mici, bucătărie proprie, monitorizare video. Copii de la 6 luni la 3 ani." />
 <meta name="twitter:image" content="https://cresapitesti.ro/assets/img/og-cover.jpg" />
+<meta name="twitter:image:alt" content="Creșă privată în Pitești — spațiu luminos și sigur pentru copii" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,15 +50,27 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ChildCare",
+  "@type": ["ChildCare", "LocalBusiness"],
+  "@id": "https://cresapitesti.ro/#cresa",
   "name": "Creșă Privată Pitești",
-  "description": "Creșă privată în Pitești pentru copii de la 6 luni la 3 ani, cu grupe mici, bucătărie proprie și monitorizare video.",
+  "alternateName": "Creșă Pitești",
+  "description": "Creșă privată în Pitești pentru copii de la 6 luni la 3 ani, cu grupe mici, bucătărie proprie, monitorizare video și metodă Montessori.",
   "url": "https://cresapitesti.ro/",
   "telephone": "+40737035999",
   "email": "akademybabygarten@gmail.com",
-  "image": "https://cresapitesti.ro/assets/img/og-cover.jpg",
+  "image": [
+    "https://cresapitesti.ro/assets/img/og-cover.jpg",
+    "https://cresapitesti.ro/assets/img/foto-despre.jpg",
+    "https://cresapitesti.ro/assets/img/foto-alimentatie.jpg"
+  ],
+  "logo": "https://cresapitesti.ro/favicon.svg",
   "priceRange": "$$",
-  "areaServed": { "@type": "City", "name": "Pitești" },
+  "currenciesAccepted": "RON",
+  "slogan": "Creșă privată în Pitești, cu grijă pentru fiecare copil",
+  "areaServed": [
+    { "@type": "City", "name": "Pitești" },
+    { "@type": "AdministrativeArea", "name": "Argeș" }
+  ],
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Bulevardul Republicii 88",
@@ -59,6 +80,11 @@
     "addressCountry": "RO"
   },
   "geo": { "@type": "GeoCoordinates", "latitude": "44.8606", "longitude": "24.8678" },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Bulevardul%20Republicii%2088%2C%20Pite%C8%99ti",
+  "sameAs": [
+    "https://www.facebook.com/CresaPitesti",
+    "https://www.instagram.com/akademybabygarten/"
+  ],
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
@@ -75,7 +101,8 @@
     { "@type": "Question", "name": "De la ce vârstă pot fi înscriși copiii?", "acceptedAnswer": { "@type": "Answer", "text": "Primim copii cu vârste între 6 luni și 3 ani, organizați în grupe mici, pe categorii de vârstă." } },
     { "@type": "Question", "name": "Pot vizita locația înainte de înscriere?", "acceptedAnswer": { "@type": "Answer", "text": "Da. Te încurajăm să programezi o vizită pentru a vedea spațiile și a afla toate detaliile." } },
     { "@type": "Question", "name": "Cum decurge perioada de acomodare?", "acceptedAnswer": { "@type": "Answer", "text": "Acomodarea este graduală, în ritmul fiecărui copil, cu comunicare permanentă cu familia." } },
-    { "@type": "Question", "name": "Cum este organizată alimentația?", "acceptedAnswer": { "@type": "Answer", "text": "Toate mesele sunt gătite zilnic în bucătăria proprie, din ingrediente proaspete, după meniuri echilibrate." } },
+    { "@type": "Question", "name": "Cum este organizată alimentația?", "acceptedAnswer": { "@type": "Answer", "text": "Toate mesele sunt gătite zilnic în bucătăria proprie, din ingrediente proaspete, după meniuri echilibrate avizate de un medic pediatru." } },
+    { "@type": "Question", "name": "Cum procedați în cazul alergiilor alimentare?", "acceptedAnswer": { "@type": "Answer", "text": "Adaptăm meniul în funcție de alergii, intoleranțe sau recomandări medicale, în colaborare cu familia." } },
     { "@type": "Question", "name": "Există monitorizare video?", "acceptedAnswer": { "@type": "Answer", "text": "Da, spațiile sunt monitorizate video permanent, pentru siguranța copiilor și liniștea părinților." } }
   ]
 }
@@ -168,7 +195,7 @@
     <header class="section__head">
       <p class="eyebrow">Despre creșa noastră</p>
       <h2>Un început echilibrat, în siguranță și cu afecțiune</h2>
-      <p class="section__lead">Suntem o <strong>creșă privată în Pitești</strong> gândită pentru părinții care își doresc mai mult decât o simplă supraveghere. Construim zilnic un mediu calm și prietenos, în care fiecare copil primește atenție individuală și sprijinul de care are nevoie pentru a se dezvolta frumos. Pregătim totodată, cu calm, trecerea firească spre grădiniță, pas cu pas.</p>
+      <p class="section__lead">Suntem o <strong>creșă privată în Pitești</strong>, în zona centrală a orașului (Bulevardul Republicii), gândită pentru părinții care își doresc mai mult decât o simplă supraveghere. Construim zilnic un mediu calm și prietenos, în care fiecare copil primește atenție individuală și sprijinul de care are nevoie pentru a se dezvolta frumos. Pregătim totodată, cu calm, trecerea firească spre grădiniță, pas cu pas.</p>
     </header>
 
     <div class="grid grid--3 age-grid">
@@ -208,7 +235,7 @@
   <div class="container">
     <header class="section__head">
       <p class="eyebrow">Metoda educațională</p>
-      <h2>Învățăm prin joacă, explorare și experiențe</h2>
+      <h2>Metoda educațională: învățăm prin joacă și explorare</h2>
       <p class="section__lead">Credem că fiecare copil învață diferit și are propriul ritm. Activitățile noastre sunt inspirate din principiile <strong>Montessori</strong> și transformă curiozitatea naturală într-o bucurie de a descoperi — dezvoltând nu doar cunoștințe, ci și încredere, creativitate și dorința de a învăța.</p>
     </header>
 
@@ -241,7 +268,7 @@
   <div class="container">
     <header class="section__head">
       <p class="eyebrow">Alimentație &amp; siguranță</p>
-      <h2>Grijă pentru sănătatea fiecărui copil, în fiecare zi</h2>
+      <h2>Alimentație sănătoasă și siguranță, în fiecare zi</h2>
       <p class="section__lead">Alimentația și mediul în care crește copilul influențează dezvoltarea lui. De aceea pregătim zilnic mese proaspete în bucătăria proprie și oferim un spațiu sigur, atent organizat.</p>
     </header>
 
@@ -277,7 +304,7 @@
   <div class="container">
     <header class="section__head">
       <p class="eyebrow">Educație &amp; program</p>
-      <h2>Cum arată o zi la creșă</h2>
+      <h2>Program zilnic la creșă: cum arată o zi</h2>
       <p class="section__lead">Programul zilnic este atent organizat pentru a îmbina educația, joaca, odihna și mesele sănătoase — respectând ritmul fiecărui copil. Program: <strong data-hours>Luni – Vineri, 07:30 – 18:00</strong>.</p>
     </header>
 
@@ -497,8 +524,8 @@
   <div class="container">
     <header class="section__head">
       <p class="eyebrow">Contact</p>
-      <h2>Hai să ne cunoaștem</h2>
-      <p class="section__lead">Programează o vizită sau sună-ne pentru orice întrebare despre înscriere, program și grupe.</p>
+      <h2>Contact – Creșă privată în Pitești</h2>
+      <p class="section__lead">Ne găsești în centrul Piteștiului, pe Bulevardul Republicii. Programează o vizită sau sună-ne pentru orice întrebare despre înscriere, program și grupe.</p>
     </header>
 
     <div class="contact">
