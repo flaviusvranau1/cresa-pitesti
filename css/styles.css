@@ -298,15 +298,19 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .reviews-cta { text-align: center; }
 
 /* testimonials slider */
-.tslider { margin: 30px 0 26px; position: relative; }
+.tslider { margin: 30px 0 26px; display: flex; align-items: center; gap: clamp(6px, 2vw, 16px); }
 .tslider__track {
+  flex: 1 1 auto; min-width: 0;
   display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x proximity;
-  padding: 6px clamp(18px, 5vw, 40px) 18px; scroll-padding-left: clamp(18px, 5vw, 40px);
+  padding: 6px 4px 18px; scroll-padding-left: 4px;
   scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
 .tslider__track::-webkit-scrollbar { display: none; }
+/* săgețile slider-ului de recenzii: în afara cardurilor (nu absolute peste ele) */
+#tPrev, #tNext { position: static; transform: none; flex: 0 0 auto; display: flex; }
+#tPrev:hover, #tNext:hover { transform: scale(1.08); }
 .tcard {
-  flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; margin: 0;
+  flex: 0 0 auto; width: min(82vw, 360px); scroll-snap-align: start; margin: 0;
   background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
   border: 1px solid rgba(31,84,110,.06); padding: 26px; display: flex; flex-direction: column; gap: 14px;
 }
@@ -423,6 +427,8 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
   .reviews-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .mapband__card { position: static; left: auto; bottom: auto; width: 100%; border-radius: 0; justify-content: space-between; gap: 8px; padding: 14px 18px; }
   .mapband__go { font-size: .85rem; }
+  #tPrev, #tNext { width: 40px; height: 40px; }
+  .tcard { width: min(66vw, 300px); padding: 22px; }
 }
 
 @media (max-width: 420px) {
