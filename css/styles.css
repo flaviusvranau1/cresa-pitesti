@@ -394,7 +394,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 @media (min-width: 761px) {
   .gallery { max-width: var(--maxw); margin-inline: auto; }
   .marquee { max-width: var(--maxw); margin-inline: auto; }
-  .mapband { max-width: 920px; margin-inline: auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+  .mapband { max-width: var(--maxw); margin-inline: auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
   .showcase__caption { top: clamp(96px, 13vh, 130px); bottom: auto; }
 }
 
