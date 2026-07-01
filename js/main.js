@@ -228,17 +228,22 @@
     var started = false, inView = false, raf = null;
     var curr = 0, target = 0;
 
+    // Dimensiunile containerului fixat (nu window.innerHeight — pe iOS 100vh ≠ innerHeight)
+    function dims() {
+      var s = canvas.parentElement;
+      return { w: (s && s.clientWidth) || window.innerWidth, h: (s && s.clientHeight) || window.innerHeight };
+    }
     function sizeCanvas() {
-      var w = window.innerWidth, h = window.innerHeight;
+      var d = dims();
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-      canvas.style.width = w + "px"; canvas.style.height = h + "px";
+      canvas.width = Math.round(d.w * dpr); canvas.height = Math.round(d.h * dpr);
+      // fără canvas.style.width/height inline — CSS-ul (inset:0; 100%) umple exact containerul
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     function draw(i) {
       var img = imgs[Math.max(0, Math.min(FRAMES - 1, Math.round(i)))];
       if (!img || !img.complete || !img.naturalWidth) return;
-      var cw = window.innerWidth, ch = window.innerHeight;
+      var d = dims(); var cw = d.w, ch = d.h;
       var ir = img.naturalWidth / img.naturalHeight, cr = cw / ch, dw, dh, dx, dy;
       if (ir > cr) { dh = ch; dw = ch * ir; dx = (cw - dw) / 2; dy = 0; }
       else { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
