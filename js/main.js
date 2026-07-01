@@ -244,10 +244,17 @@
       var img = imgs[Math.max(0, Math.min(FRAMES - 1, Math.round(i)))];
       if (!img || !img.complete || !img.naturalWidth) return;
       var d = dims(); var cw = d.w, ch = d.h;
+      ctx.fillStyle = "#0e2330";            // fundal opac: elimină orice rest din cadrul anterior
+      ctx.fillRect(0, 0, cw + 1, ch + 1);
       var ir = img.naturalWidth / img.naturalHeight, cr = cw / ch, dw, dh, dx, dy;
       if (ir > cr) { dh = ch; dw = ch * ir; dx = (cw - dw) / 2; dy = 0; }
       else { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
       ctx.drawImage(img, dx, dy, dw, dh);
+    }
+    function ensureSize() {
+      var d = dims();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.round(d.w * dpr) || canvas.height !== Math.round(d.h * dpr)) sizeCanvas();
     }
     function preload() {
       if (started) return; started = true;
@@ -269,6 +276,7 @@
       return Math.min(1, Math.max(0, -r.top / total));
     }
     function tick() {
+      ensureSize();
       target = progress() * (FRAMES - 1);
       if (reduce) { curr = target; draw(curr); raf = null; return; }
       curr += (target - curr) * 0.18;
