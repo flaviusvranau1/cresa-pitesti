@@ -393,6 +393,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 /* ---------- Desktop: secțiuni mai înguste (contained) + text clip sus ---------- */
 @media (min-width: 761px) {
   .gallery { max-width: var(--maxw); margin-inline: auto; }
+  .slide { width: calc((100% - 32px) / 3); }   /* exact 3 carduri întregi, fără card tăiat */
   .marquee { max-width: var(--maxw); margin-inline: auto; }
   .mapband { max-width: var(--maxw); margin-inline: auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
   .showcase__caption { top: clamp(96px, 13vh, 130px); bottom: auto; }
