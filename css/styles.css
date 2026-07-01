@@ -383,6 +383,23 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .fab__btn--call { background: var(--sky); }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,.5);} 70% { box-shadow: 0 0 0 16px rgba(37,211,102,0);} 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0);} }
 
+/* ---------- Cookie banner ---------- */
+.cookie {
+  position: fixed; left: 16px; bottom: 16px; z-index: 95;
+  max-width: min(380px, calc(100vw - 110px));
+  background: #fff; color: var(--ink); border-radius: 16px;
+  box-shadow: 0 18px 42px -18px rgba(31,84,110,.55); border: 1px solid rgba(31,84,110,.08);
+  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+  font-size: .88rem; line-height: 1.4; animation: cookieUp .5s var(--ease);
+}
+.cookie[hidden] { display: none; }
+.cookie p { margin: 0; }
+.cookie .btn { flex: 0 0 auto; }
+@keyframes cookieUp { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (max-width: 520px) {
+  .cookie { left: 12px; right: 82px; bottom: 12px; max-width: none; padding: 12px 14px; font-size: .82rem; }
+}
+
 /* ---------- Reveal on scroll ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.is-in { opacity: 1; transform: none; }
@@ -393,7 +410,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 /* ---------- Desktop: secțiuni mai înguste (contained) + text clip sus ---------- */
 @media (min-width: 761px) {
   .gallery { max-width: var(--maxw); margin-inline: auto; }
-  .slide { width: calc((100% - 32px) / 3); }   /* exact 3 carduri întregi, fără card tăiat */
+  .slide { width: calc((100% - 44px) / 3); }   /* 3 carduri întregi + marjă de siguranță (fără card tăiat) */
   .marquee { max-width: var(--maxw); margin-inline: auto; }
   .mapband { max-width: var(--maxw); margin-inline: auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
   .showcase__caption { top: clamp(96px, 13vh, 130px); bottom: auto; }

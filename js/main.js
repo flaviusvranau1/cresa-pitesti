@@ -64,6 +64,19 @@
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 
+  /* ---------- Cookie banner ---------- */
+  var cookieBar = document.getElementById("cookieBar");
+  if (cookieBar) {
+    var accepted = false;
+    try { accepted = !!localStorage.getItem("cookieOk"); } catch (e) {}
+    if (!accepted) cookieBar.hidden = false;
+    var ca = document.getElementById("cookieAccept");
+    if (ca) ca.addEventListener("click", function () {
+      try { localStorage.setItem("cookieOk", "1"); } catch (e) {}
+      cookieBar.hidden = true;
+    });
+  }
+
   /* ---------- Navbar sticky ---------- */
   var nav = document.getElementById("nav");
   function onScroll() {
