@@ -178,10 +178,19 @@
     }
   })();
 
-  /* ---------- Hero video: fallback la eroare ---------- */
+  /* ---------- Hero video: pornire robustă + fallback ---------- */
   var hero = document.getElementById("heroVideo");
   if (hero) {
     hero.addEventListener("error", function () { hero.style.display = "none"; });
+    if (!reduce) {
+      hero.muted = true; hero.setAttribute("muted", "");
+      var tryPlay = function () { var p = hero.play(); if (p && p.catch) p.catch(function () {}); };
+      tryPlay();
+      // reîncearcă la prima interacțiune (unele browsere blochează autoplay-ul)
+      ["touchstart", "click", "scroll"].forEach(function (ev) {
+        window.addEventListener(ev, tryPlay, { once: true, passive: true });
+      });
+    }
   }
 
   /* ---------- Count-up pentru statistici ---------- */
