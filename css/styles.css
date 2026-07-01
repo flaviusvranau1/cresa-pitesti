@@ -390,6 +390,14 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* ---------- Desktop: secțiuni mai înguste (contained) + text clip sus ---------- */
+@media (min-width: 761px) {
+  .gallery { max-width: var(--maxw); margin-inline: auto; }
+  .marquee { max-width: var(--maxw); margin-inline: auto; }
+  .mapband { max-width: 920px; margin-inline: auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+  .showcase__caption { top: clamp(96px, 13vh, 130px); bottom: auto; }
+}
+
 @media (max-width: 980px) {
   .grid--3 { grid-template-columns: repeat(2, 1fr); }
   .feature-row { grid-template-columns: 1fr; }
