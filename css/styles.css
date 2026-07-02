@@ -331,8 +331,6 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .mapband { position: relative; }
 .mapband__map { position: relative; width: 100%; height: clamp(320px, 42vw, 460px); background: var(--sky-soft); overflow: hidden; }
 .mapband__map iframe { width: 100%; height: calc(100% + 48px); border: 0; display: block; filter: saturate(1.05); }
-.mapband__osm { position: absolute; right: 8px; bottom: 8px; z-index: 2; font-size: .6rem; color: rgba(20,30,40,.55); background: rgba(255,255,255,.72); padding: 2px 7px; border-radius: 6px; text-decoration: none; }
-.mapband__osm:hover { color: var(--sky-dark); }
 .mapband__map .ph { height: 100%; border-radius: 0; border: 0; }
 .mapband__card {
   position: absolute; left: clamp(16px, 5vw, 48px); bottom: clamp(16px, 4vw, 36px);
@@ -376,6 +374,8 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .footer__anpc { font-size: .8rem; letter-spacing: .1em; border: 1px solid rgba(255,255,255,.3); padding: 5px 12px; border-radius: 8px; opacity: .8; }
 .footer__bottom { border-top: 1px solid rgba(255,255,255,.1); padding: 18px 0; font-size: .85rem; }
 .footer__bottom p { opacity: .7; }
+.footer__bottom p.footer__attrib { font-size: .72rem; opacity: .4; margin-top: 4px; }
+.footer__attrib a { color: inherit; text-decoration: underline; }
 
 /* ---------- Floating actions ---------- */
 .fab { position: fixed; right: 18px; bottom: 18px; z-index: 90; display: flex; flex-direction: column; gap: 12px; }

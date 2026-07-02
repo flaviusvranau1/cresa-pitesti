@@ -56,8 +56,7 @@
     }
     if (src) {
       holder.innerHTML = '<iframe src="' + src + '" loading="lazy" title="Hartă — Creșă Pitești" ' +
-        'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>' +
-        '<a class="mapband__osm" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>';
+        'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>';
     }
   })();
 
