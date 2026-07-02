@@ -35,9 +35,9 @@ window.SITE_CONFIG = {
   // (fără cheie API, fără ecran de consimțământ). Butonul „Deschide harta" duce la Google Maps.
   mapsEmbed: "",
 
-  // Coordonate pentru schema (opțional, ajută SEO local) — aprox. Pitești
-  geoLat: "44.8606",
-  geoLng: "24.8678",
+  // Coordonate (pin hartă + schema SEO) — Bd. Republicii, Centru Pitești
+  geoLat: "44.8540",
+  geoLng: "24.8761",
 
   // Domeniul canonic (pentru SEO/share)
   siteUrl: "https://cresapitesti.ro"
