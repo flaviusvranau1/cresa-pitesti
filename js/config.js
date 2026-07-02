@@ -25,7 +25,7 @@ window.SITE_CONFIG = {
   hours: "Luni – Vineri, 07:30 – 18:00",
 
   // Mesajul precompletat pentru butonul „Programează-te" (WhatsApp)
-  whatsappMessage: "Bună ziua! Sunt interesat(ă) să programez o vizită. Îmi puteți spune când aveți disponibilitate?",
+  whatsappMessage: "Bună ziua! Sunt interesat(ă) de înscrierea copilului meu. Îmi puteți spune când aveți disponibilitate?",
 
   // Linkuri sociale (lasă gol "" ca să se ascundă)
   facebook: "https://www.facebook.com/CresaPitesti",
