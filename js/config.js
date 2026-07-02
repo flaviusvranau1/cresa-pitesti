@@ -36,8 +36,8 @@ window.SITE_CONFIG = {
   mapsEmbed: "",
 
   // Coordonate (pin hartă + schema SEO) — Bd. Republicii, Centru Pitești
-  geoLat: "44.8540",
-  geoLng: "24.8761",
+  geoLat: "44.855361",
+  geoLng: "24.873449",
 
   // Domeniul canonic (pentru SEO/share)
   siteUrl: "https://cresapitesti.ro"
