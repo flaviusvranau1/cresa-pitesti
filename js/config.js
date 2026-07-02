@@ -30,6 +30,7 @@ window.SITE_CONFIG = {
   // Linkuri sociale (lasă gol "" ca să se ascundă)
   facebook: "https://www.facebook.com/CresaPitesti",
   instagram: "https://www.instagram.com/akademybabygarten/",
+  youtube: "https://www.youtube.com/@akademybabygarten",
 
   // Hartă: lăsat gol → se folosește OpenStreetMap din coordonatele de mai jos
   // (fără cheie API, fără ecran de consimțământ). Butonul „Deschide harta" duce la Google Maps.

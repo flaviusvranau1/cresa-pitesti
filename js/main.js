@@ -38,6 +38,9 @@
   document.querySelectorAll("[data-instagram]").forEach(function (el) {
     if (cfg.instagram) { el.setAttribute("href", cfg.instagram); el.hidden = false; }
   });
+  document.querySelectorAll("[data-youtube]").forEach(function (el) {
+    if (cfg.youtube) { el.setAttribute("href", cfg.youtube); el.hidden = false; }
+  });
   document.querySelectorAll("[data-maps-link]").forEach(function (el) {
     var q = [cfg.addressStreet, cfg.addressCity, cfg.addressRegion].filter(Boolean).join(", ");
     el.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q || "Pitești"));
