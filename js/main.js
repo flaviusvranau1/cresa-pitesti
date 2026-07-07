@@ -313,6 +313,52 @@
     window.addEventListener("resize", function () { if (started) { sizeCanvas(); draw(curr); } }, { passive: true });
   })();
 
+  /* ---------- Reels: autoplay când intră în ecran ---------- */
+  (function () {
+    var vids = document.querySelectorAll(".reel video");
+    if (!vids.length) return;
+    if (reduce) {
+      vids.forEach(function (v) { v.setAttribute("controls", ""); v.setAttribute("preload", "metadata"); });
+      return;
+    }
+    var tryPlayReel = function (v) {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {
+        // clipul încă se încarcă (preload=none) — reîncearcă atunci când are date
+        v.addEventListener("loadeddata", function () {
+          if (v.getAttribute("data-inview") === "1") { var p2 = v.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+        }, { once: true });
+      });
+    };
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var v = en.target;
+          if (en.isIntersecting && en.intersectionRatio >= 0.35) {
+            v.setAttribute("data-inview", "1");
+            tryPlayReel(v);
+          } else {
+            v.setAttribute("data-inview", "0");
+            if (!v.paused) v.pause();
+          }
+        });
+      }, { threshold: [0, 0.35, 1] });
+      vids.forEach(function (v) { io.observe(v); });
+    } else {
+      vids.forEach(function (v) { v.setAttribute("controls", ""); });
+    }
+    document.querySelectorAll(".reel__sound").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var v = btn.parentElement.querySelector("video");
+        if (!v) return;
+        v.muted = !v.muted;
+        btn.textContent = v.muted ? "🔇" : "🔊";
+        btn.setAttribute("aria-label", v.muted ? "Pornește sunetul" : "Oprește sunetul");
+        if (!v.muted && v.getAttribute("data-inview") === "1") { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      });
+    });
+  })();
+
   /* ---------- Loop unic de scroll (rAF) — parallax hero, scrub, nav ---------- */
   var heroContent = document.querySelector(".hero__content");
   var heroMedia = document.querySelector(".hero__media");
