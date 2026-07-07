@@ -276,8 +276,15 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .timeline h3 { font-size: 1.18rem; margin-bottom: 2px; }
 .timeline p { color: var(--ink-soft); font-size: .96rem; }
 
-/* ---------- Reels video (pauze între secțiuni) ---------- */
+/* ---------- Reels video (mobil: pauze între secțiuni · desktop: rând grupat) ---------- */
 .reelbreak { display: flex; justify-content: center; margin-top: clamp(30px, 5vw, 46px); }
+.reelbreak:empty { display: none; margin: 0; }
+.reels-desk { display: none; }
+.reels { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+@media (min-width: 761px) {
+  .reels-desk { display: block; }
+  .reelbreak { display: none; }
+}
 .reel { position: relative; width: min(310px, 78vw); aspect-ratio: 9 / 16; margin: 0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); background: var(--sky-soft); }
 .reel video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .reel__sound { position: absolute; right: 10px; bottom: 10px; z-index: 2; width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(20,30,40,.55); color: #fff; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }

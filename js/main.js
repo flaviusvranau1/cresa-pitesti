@@ -317,6 +317,36 @@
   (function () {
     var vids = document.querySelectorAll(".reel video");
     if (!vids.length) return;
+
+    /* pe desktop, clipurile se mută în rândul grupat; pe mobil, între secțiuni */
+    var slots = document.querySelectorAll(".reelbreak");
+    var deskRow = document.getElementById("reelsRow");
+    var mqDesk = window.matchMedia("(min-width: 761px)");
+    function placeReels() {
+      var reels = document.querySelectorAll("figure.reel");
+      if (deskRow && mqDesk.matches) {
+        reels.forEach(function (r) { deskRow.appendChild(r); });
+      } else {
+        slots.forEach(function (s, i) { if (reels[i]) s.appendChild(reels[i]); });
+      }
+    }
+    placeReels();
+    if (mqDesk.addEventListener) mqDesk.addEventListener("change", placeReels);
+    else if (mqDesk.addListener) mqDesk.addListener(placeReels);
+
+    /* preîncărcare din timp: când clipul se apropie la ~900px, începe descărcarea */
+    if ("IntersectionObserver" in window && !reduce) {
+      var ioPre = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            var v = en.target;
+            if (v.preload === "none") { v.preload = "auto"; v.load(); }
+            ioPre.unobserve(v);
+          }
+        });
+      }, { rootMargin: "900px 0px" });
+      vids.forEach(function (v) { ioPre.observe(v); });
+    }
     if (reduce) {
       vids.forEach(function (v) { v.setAttribute("controls", ""); v.setAttribute("preload", "metadata"); });
       return;
