@@ -364,7 +364,7 @@
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           var v = en.target;
-          if (en.isIntersecting && en.intersectionRatio >= 0.12) {
+          if (en.isIntersecting) {
             v.setAttribute("data-inview", "1");
             tryPlayReel(v);
           } else {
@@ -372,7 +372,8 @@
             if (!v.paused) v.pause();
           }
         });
-      }, { threshold: [0, 0.12, 1] });
+        // pornește cu ~80% din înălțimea ecranului ÎNAINTE ca clipul să intre în cadru
+      }, { rootMargin: "40% 0px 80% 0px", threshold: 0 });
       vids.forEach(function (v) { io.observe(v); });
     } else {
       vids.forEach(function (v) { v.setAttribute("controls", ""); });
