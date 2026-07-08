@@ -364,7 +364,7 @@
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           var v = en.target;
-          if (en.isIntersecting && en.intersectionRatio >= 0.35) {
+          if (en.isIntersecting && en.intersectionRatio >= 0.12) {
             v.setAttribute("data-inview", "1");
             tryPlayReel(v);
           } else {
@@ -372,7 +372,7 @@
             if (!v.paused) v.pause();
           }
         });
-      }, { threshold: [0, 0.35, 1] });
+      }, { threshold: [0, 0.12, 1] });
       vids.forEach(function (v) { io.observe(v); });
     } else {
       vids.forEach(function (v) { v.setAttribute("controls", ""); });
