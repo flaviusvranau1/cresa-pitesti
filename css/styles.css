@@ -157,7 +157,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 .act__icon { font-size: 1.9rem; display: inline-block; margin-bottom: 10px; }
 
 /* ---------- Gallery filters ---------- */
-.gallery__filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; margin-top: 26px; }
+.gallery__filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .gfilter {
   font-family: var(--font-body); font-weight: 600; font-size: .92rem; padding: 9px 18px;
   border-radius: 100px; border: 1.5px solid rgba(31,84,110,.18); background: #fff; color: var(--ink-soft);
