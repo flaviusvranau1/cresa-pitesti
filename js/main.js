@@ -156,10 +156,18 @@
       });
     }
 
-    // autoplay lejer (oprit pe reduced-motion)
+    // autoplay lejer (oprit pe reduced-motion) — pornește DOAR când galeria e pe ecran,
+    // ca vizitatorul să vadă mereu pozele de la prima, nu dintr-un punct avansat
+    var galInView = !("IntersectionObserver" in window);
+    if ("IntersectionObserver" in window) {
+      var ioGal = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { galInView = en.isIntersecting; });
+      }, { threshold: 0.15 });
+      ioGal.observe(track);
+    }
     if (!reduce) {
       setInterval(function () {
-        if (paused) return;
+        if (paused || !galInView) return;
         if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 6) {
           track.scrollTo({ left: 0, behavior: "smooth" });
         } else { go(1); }

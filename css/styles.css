@@ -261,6 +261,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; font-weight: 60
 
 /* safety block */
 .safety { margin-top: 44px; background: var(--white); border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 40px); box-shadow: var(--shadow); }
+.safety { scroll-margin-top: 90px; }
 .safety__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 40px); align-items: center; }
 .safety__grid .shot { height: 100%; }
 .safety__grid .shot img { min-height: 300px; }
